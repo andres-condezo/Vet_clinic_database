@@ -15,3 +15,8 @@ CREATE TABLE animals(
   weight_kg DECIMAL,
   PRIMARY KEY(id)
 );
+
+/* Milestone 2: update animals table */
+
+ALTER TABLE animals
+ADD COLUMN species VARCHAR(250);
