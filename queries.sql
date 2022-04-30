@@ -181,3 +181,74 @@ SELECT
 FROM animals
 WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31'
 GROUP BY species;
+
+/* Milestone 3: query multiple tables */
+
+/* What animals belong to Melody Pond? */
+SELECT
+    owners.full_name AS owners,
+    animals.name AS animals
+FROM owners
+INNER JOIN animals
+    ON owners.id = animals.owner_id
+WHERE owners.full_name = 'Melody Pond';
+
+/* List of all animals that are pokemon (their type is Pokemon). */
+SELECT
+    animals.name AS animals,
+    species.name AS species
+FROM animals
+INNER JOIN species
+    ON animals.species_id = species.id
+WHERE species.name = 'Pokemon';
+
+/* List all owners and their animals,
+remember to include those that don't own any animal. */
+SELECT
+    owners.full_name AS owners,
+    animals.name AS animals
+FROM owners
+LEFT JOIN animals
+    ON owners.id = animals.owner_id;
+
+/* How many animals are there per species? */
+SELECT
+    species.name,
+    COUNT(animals.name) AS total
+FROM species
+INNER JOIN animals
+    ON species.id = animals.species_id
+GROUP BY species.name;
+
+/* List all Digimon owned by Jennifer Orwell. */
+SELECT
+    owners.full_name AS owners,
+    animals.name AS animals,
+    species.name AS species
+FROM owners
+INNER JOIN animals
+    ON owners.id = animals.owner_id
+INNER JOIN species
+    ON species.id = animals.species_id
+WHERE owners.full_name = 'Jennifer Orwell' AND species.name = 'Digimon';
+
+/* List all animals owned by Dean Winchester
+that haven't tried to escape. */
+SELECT
+    owners.full_name AS owners,
+    animals.name AS animals,
+    animals.escape_attempts AS escape_attempts
+FROM owners
+INNER JOIN animals
+    ON owners.id = animals.owner_id
+WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+/* Who owns the most animals? */
+SELECT
+    owners.full_name AS owners,
+    COUNT(animals.owner_id) AS animals
+FROM owners
+INNER JOIN animals
+    ON owners.id = animals.owner_id
+GROUP BY owners.full_name
+ORDER BY animals DESC LIMIT 1;
