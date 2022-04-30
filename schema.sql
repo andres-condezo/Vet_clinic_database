@@ -55,7 +55,7 @@ ADD CONSTRAINT constraint_owner
 FOREIGN KEY (owner_id)
 REFERENCES owners;
 
-/* Milestone 3: add "join table" for visits. */
+/* Milestone 4: add "join table" for visits. */
 
 CREATE TABLE vets(
     id INT GENERATED ALWAYS AS IDENTITY,
